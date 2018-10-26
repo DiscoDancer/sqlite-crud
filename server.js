@@ -37,12 +37,28 @@ app.delete('/delete', (req, res) => {
     res.send(req.body);
 })
 
-app.put('/update', (req, res) => {
+app.patch('/update', (req, res) => {
     const id = req.body.id;
 
     const found = todoList.find((x) => x.id === id);
-    found.name = req.body.name;
+    if (req.body.name) {
+        found.name = req.body.name;
+    }
     found.done = req.body.done;
+    res.send(req.body);
+})
+
+app.put('/replace', (req, res) => {
+    const id = req.body.id;
+    const found = todoList.find((x) => x.id === id);
+    const index = todoList.indexOf(found);
+    todoList.splice(index, 1);
+
+    todoList.push({
+        name: req.body.name,
+        done: req.body.done,
+        id
+    });
 
     res.send(req.body);
 })
