@@ -5,16 +5,20 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE, PATCH");
+    res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+    next();
+});
+
 let counter = 0;
 
 const todoList = [
     { name: "eat", done: true, id: ++counter },
     { name: "sleep", done: false, id: ++counter }
 ];
-
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
-})
 
 app.get('/todos', (req, res) => {
     res.send(todoList);
@@ -65,4 +69,4 @@ app.put('/replace', (req, res) => {
 
 
 
-app.listen(8080, () => console.log("started"));
+app.listen(3000, () => console.log("started"));
