@@ -10,6 +10,7 @@
             "error"
         ],
         "interface-over-type-literal": false,
-        "object-literal-sort-keys": false
+        "object-literal-sort-keys": false,
+        "jsx-no-lambda": false
     }
 }

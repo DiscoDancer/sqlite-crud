@@ -1,4 +1,4 @@
-import { BaseAction, ActionTypes, AddTodoAction, ToggleTodoAction } from "../actions/actions";
+import { ActionTypes, AddTodoAction, BaseAction, ToggleTodoAction } from "../actions/actions";
 import Todo from "../models/todo";
 
 export default function todos(state: Todo[] = [], action: BaseAction): Todo[] {
@@ -11,13 +11,13 @@ export default function todos(state: Todo[] = [], action: BaseAction): Todo[] {
                     id: addAction.id,
                     text: addAction.text,
                     completed: false,
-                }
-            ]
+                },
+            ];
         case ActionTypes.ToggleTodo:
             const toggleAction = action as ToggleTodoAction;
-            return state.map(todo => {
+            return state.map((todo) => {
                 if (todo.id === toggleAction.id) {
-                    return { ...todo, completed: !todo.completed }
+                    return { ...todo, completed: !todo.completed };
                 }
                 return todo;
             });

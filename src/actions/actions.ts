@@ -4,7 +4,7 @@ export enum ActionTypes {
     AddTodo,
     ToggleTodo,
     SetVisibilityFilter,
-};
+}
 
 export type BaseAction = {
     type: ActionTypes;
