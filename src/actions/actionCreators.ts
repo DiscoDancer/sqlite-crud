@@ -1,5 +1,5 @@
 import VisibilityFilters from "../models/visibilityFilters";
-import { SetVisibilityFilterAction, ActionTypes, ToggleTodoAction, AddTodoAction } from "./actions";
+import { ActionTypes, AddTodoAction, SetVisibilityFilterAction, ToggleTodoAction } from "./actions";
 
 let count = 0;
 
@@ -10,17 +10,17 @@ export function setVisibilityFilter(filter: VisibilityFilters): SetVisibilityFil
     };
 }
 
-export function toggleTodo (id: number): ToggleTodoAction {
+export function toggleTodo(id: number): ToggleTodoAction {
     return {
         id,
         type: ActionTypes.ToggleTodo,
-    }
+    };
 }
 
-export function addTodo (text: string): AddTodoAction {
+export function addTodo(text: string): AddTodoAction {
     return {
         id: ++count,
         text,
-        type: ActionTypes.ToggleTodo,
-    }
+        type: ActionTypes.AddTodo,
+    };
 }

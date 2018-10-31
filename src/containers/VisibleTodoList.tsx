@@ -5,6 +5,9 @@ import { AppState } from "../models/appState";
 import Todo from "../models/todo";
 import VisibilityFilters from "../models/visibilityFilters";
 
+// container defines how the component should react on state change
+// container fires action creators in response to component`s callback calls
+
 function getVisibleTodos(todos: Todo[], filter: VisibilityFilters): Todo[] {
     switch (filter) {
         case VisibilityFilters.ShowAll:
