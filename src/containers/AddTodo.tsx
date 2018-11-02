@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
-import { addTodo } from "../actions/actionCreators";
+import { addTodo } from "../actions/todoActions";
+// import { addTodo } from "../actions/actionCreators";
 import AddTodoForm, { CallbackProps } from "../components/AddTodoForm";
 
 function mapDispatchToProps(dispatch: any): CallbackProps {

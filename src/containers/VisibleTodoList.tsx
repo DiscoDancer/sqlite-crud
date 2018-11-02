@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { toggleTodo } from "../actions/actionCreators";
+import { toggleTodo } from "../actions/todoActions";
 import TodoList, { ArgProps, CallbackProps } from "../components/TodoList";
 import { AppState } from "../models/appState";
 import Todo from "../models/todo";
