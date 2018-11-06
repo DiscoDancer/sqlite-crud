@@ -1,7 +1,7 @@
 import { ActionType, getType } from "typesafe-actions";
+import * as todoActions from "../actions/todoActions";
 import Todo from "../models/todo";
 
-import * as todoActions from "../actions/todoActions";
 export type TodosAction = ActionType<typeof todoActions>;
 
 export default function todos(state: Todo[] = [], action: TodosAction): Todo[] {

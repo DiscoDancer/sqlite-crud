@@ -1,14 +1,13 @@
-import { ActionTypes, BaseAction, SetVisibilityFilterAction } from "../actions/actions";
+import { ActionType, getType } from "typesafe-actions";
+import * as filterActions from "../actions/filterActions";
 import VisibilityFilters from "../models/visibilityFilters";
 
-// 1 reducer <--> 1 part of state.
-// 1 reducer <--> 1+ action types
-// ignores other parts of state
-export default function visibilityFilter(state = VisibilityFilters.ShowAll, action: BaseAction): VisibilityFilters {
+export type FilterAction = ActionType<typeof filterActions>;
+
+export default function visibilityFilter(state = VisibilityFilters.ShowAll, action: FilterAction): VisibilityFilters {
     switch (action.type) {
-        case ActionTypes.SetVisibilityFilter:
-            const filterAction = action as SetVisibilityFilterAction;
-            return filterAction.filter;
+        case getType(filterActions.setVisibilityFilter):
+            return action.payload;
         default:
             return state;
     }

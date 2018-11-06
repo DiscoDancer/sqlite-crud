@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { setVisibilityFilter } from "../actions/actionCreators";
+import { setVisibilityFilter } from "../actions/filterActions";
 import Link, { ArgProps, CallbackProps } from "../components/Link";
 import { AppState } from "../models/appState";
 import VisibilityFilters from "../models/visibilityFilters";
