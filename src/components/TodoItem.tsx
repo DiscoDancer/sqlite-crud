@@ -1,12 +1,12 @@
 import * as React from "react";
 
-type Props = {
-    onClick: () => void;
+export interface TodoItemProps {
     completed: boolean;
     text: string;
-};
+    onClick: () => void;
+}
 
-export default function TodoItem(props: Props) {
+export default function TodoItem(props: TodoItemProps) {
     const cssClass = props.completed ? "crossed" : "";
 
     return (

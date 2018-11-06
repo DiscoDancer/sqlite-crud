@@ -4,7 +4,7 @@ import Todo from "../models/todo";
 
 export type TodosAction = ActionType<typeof todoActions>;
 
-export default function todos(state: Todo[] = [], action: TodosAction): Todo[] {
+const todos = (state: Todo[] = [], action: TodosAction) => {
     switch (action.type) {
         case getType(todoActions.addTodo):
             return [...state, action.payload];
@@ -18,4 +18,6 @@ export default function todos(state: Todo[] = [], action: TodosAction): Todo[] {
         default:
             return state;
     }
-}
+};
+
+export default todos;

@@ -4,11 +4,13 @@ import VisibilityFilters from "../models/visibilityFilters";
 
 export type FilterAction = ActionType<typeof filterActions>;
 
-export default function visibilityFilter(state = VisibilityFilters.ShowAll, action: FilterAction): VisibilityFilters {
+const visibilityFilter = (state = VisibilityFilters.ShowAll, action: FilterAction) => {
     switch (action.type) {
         case getType(filterActions.setVisibilityFilter):
             return action.payload;
         default:
             return state;
     }
-}
+};
+
+export default visibilityFilter;

@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { toggleTodo } from "../actions/todoActions";
-import TodoList, { ArgProps, CallbackProps } from "../components/TodoList";
+import TodoList from "../components/TodoList";
 import { AppState } from "../models/appState";
 import Todo from "../models/todo";
 import VisibilityFilters from "../models/visibilityFilters";
@@ -8,7 +8,7 @@ import VisibilityFilters from "../models/visibilityFilters";
 // container defines how the component should react on state change
 // container fires action creators in response to component`s callback calls
 
-function getVisibleTodos(todos: Todo[], filter: VisibilityFilters): Todo[] {
+const getVisibleTodos = (todos: Todo[], filter: VisibilityFilters) => {
     switch (filter) {
         case VisibilityFilters.ShowAll:
             return todos;
@@ -19,19 +19,15 @@ function getVisibleTodos(todos: Todo[], filter: VisibilityFilters): Todo[] {
         default:
             throw new Error("Unknown filter: " + filter);
     }
-}
+};
 
-function mapStateToProps(state: AppState): ArgProps {
-    return {
-        todos: getVisibleTodos(state.todos, state.visibilityFilter),
-    };
-}
+const mapStateToProps = (state: AppState) => ({
+    todos: getVisibleTodos(state.todos, state.visibilityFilter),
+});
 
-function mapDispatchToProps(dispatch: any): CallbackProps {
-    return {
-        toggleTodo: (id) => dispatch(toggleTodo(id)),
-    };
-}
+const mapDispatchToProps = (dispatch: any) => ({
+    toggleTodo: (id: number) => dispatch(toggleTodo(id)),
+});
 
 export default connect(
     mapStateToProps,

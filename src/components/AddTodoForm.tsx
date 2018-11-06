@@ -1,13 +1,13 @@
 import * as React from "react";
 
-export type CallbackProps = {
-    onAdd: (name: string) => void;
-};
+export interface AddTodoFormProps {
+    onAdd: (name: string) => any;
+}
 
-export default class AddTodoForm extends React.Component<CallbackProps, {}> {
+export default class AddTodoForm extends React.Component<AddTodoFormProps, {}> {
     private inputRef = React.createRef<HTMLInputElement>();
 
-    constructor(props: CallbackProps) {
+    constructor(props: AddTodoFormProps) {
         super(props);
 
         this.handleSubmit = this.handleSubmit.bind(this);

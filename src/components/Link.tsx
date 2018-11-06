@@ -1,17 +1,12 @@
 import * as React from "react";
 
-export type ArgProps = {
+export interface LinkProps {
     children?: any;
     active: boolean;
-};
-
-export type CallbackProps = {
     onClick: () => void;
-};
+}
 
-type Props = ArgProps & CallbackProps;
-
-export default function Link(props: Props) {
+export default function Link(props: LinkProps) {
     const styles = {
         marginLeft: "4px",
     };
