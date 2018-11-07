@@ -6,15 +6,20 @@ export interface TodoItemProps {
     onClick: () => any;
 }
 
-export default function TodoItem(props: TodoItemProps) {
-    const cssClass = props.completed ? "crossed" : "";
+export const TodoItem: React.SFC<TodoItemProps> = (props) => {
+    const { completed, text, onClick } = props;
+    const cssClass = completed ? "crossed" : "";
+
+    const handleClick = () => { onClick(); };
 
     return (
         <li
-            onClick={props.onClick}
+            onClick={handleClick}
             className={cssClass}
         >
-            {props.text}
+            {text}
         </li>
     );
-}
+};
+
+export default TodoItem;

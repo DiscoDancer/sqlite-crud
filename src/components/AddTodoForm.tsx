@@ -4,37 +4,30 @@ export interface AddTodoFormProps {
     onAdd: (name: string) => any;
 }
 
-export default class AddTodoForm extends React.Component<AddTodoFormProps, {}> {
-    private inputRef = React.createRef<HTMLInputElement>();
+export const AddTodoForm: React.SFC<AddTodoFormProps> = (props) => {
+    const { onAdd } = props;
+    const inputRef = React.createRef<HTMLInputElement>();
 
-    constructor(props: AddTodoFormProps) {
-        super(props);
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    public render() {
-        return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <input ref={this.inputRef} />
-                    <button type="submit">Add Todo</button>
-                </form>
-            </div>
-        );
-    }
-
-    private handleSubmit(e: React.FormEvent) {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        const name = this.inputRef.current.value.trim();
-
+        const name = inputRef.current.value.trim();
         if (!name) {
             return;
         }
 
-        this.props.onAdd(name);
+        onAdd(name);
+        inputRef.current.value = "";
+    };
 
-        this.inputRef.current.value = "";
-    }
-}
+    return (
+        <div>
+            <form onSubmit={handleSubmit}>
+                <input ref={inputRef} />
+                <button type="submit">Add Todo</button>
+            </form>
+        </div>
+    );
+};
+
+export default AddTodoForm;

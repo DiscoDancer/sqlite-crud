@@ -6,18 +6,21 @@ export interface LinkProps {
     onClick: () => any;
 }
 
-export default function Link(props: LinkProps) {
+export const Link: React.SFC<LinkProps> = (props) => {
+    const { children, active, onClick } = props;
     const styles = {
         marginLeft: "4px",
     };
 
     return (
         <button
-            onClick={props.onClick}
-            disabled={props.active}
+            onClick={onClick}
+            disabled={active}
             style={styles}
         >
-            {props.children}
+            {children}
         </button>
     );
-}
+};
+
+export default Link;

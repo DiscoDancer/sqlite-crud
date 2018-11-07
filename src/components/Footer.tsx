@@ -2,7 +2,7 @@ import * as React from "react";
 import FilterLink from "../containers/FilterLink";
 import VisibilityFilters from "../models/visibilityFilters";
 
-export default function Footer() {
+export const Footer: React.SFC = () =>  {
     return (
         <div>
             <span>Show: </span>
@@ -17,4 +17,6 @@ export default function Footer() {
             </FilterLink>
         </div>
     );
-}
+};
+
+export default Footer;

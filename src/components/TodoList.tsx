@@ -7,21 +7,25 @@ export interface TodoListProps {
     toggleTodo: (id: number) => any;
 }
 
-export default function TodoList(props: TodoListProps) {
+export const TodoList: React.SFC<TodoListProps> = (props) => {
+    const { todos, toggleTodo } = props;
+
     const renderTodo = (todo: Todo) => (
         <TodoItem
             completed={todo.completed}
-            onClick={() => props.toggleTodo(todo.id)}
+            onClick={() => toggleTodo(todo.id)}
             text={todo.text}
             key={todo.id}
         />
     );
 
-    const lis = props.todos.map(renderTodo);
+    const lis = todos.map(renderTodo);
 
     return (
         <ul>
             {lis}
         </ul>
     );
-}
+};
+
+export default TodoList;
