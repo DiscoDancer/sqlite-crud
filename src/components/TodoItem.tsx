@@ -3,7 +3,7 @@ import * as React from "react";
 export interface TodoItemProps {
     completed: boolean;
     text: string;
-    onClick: () => void;
+    onClick: () => any;
 }
 
 export default function TodoItem(props: TodoItemProps) {

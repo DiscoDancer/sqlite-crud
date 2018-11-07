@@ -4,7 +4,7 @@ import TodoItem from "./TodoItem";
 
 export interface TodoListProps {
     todos: Todo[];
-    toggleTodo: (id: number) => void;
+    toggleTodo: (id: number) => any;
 }
 
 export default function TodoList(props: TodoListProps) {

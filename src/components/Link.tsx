@@ -3,7 +3,7 @@ import * as React from "react";
 export interface LinkProps {
     children?: any;
     active: boolean;
-    onClick: () => void;
+    onClick: () => any;
 }
 
 export default function Link(props: LinkProps) {
