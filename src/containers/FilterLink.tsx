@@ -18,10 +18,6 @@ const mapDispatchToProps = (dispatch: Dispatch<FilterAction>, ownProps: FilterLi
     onClick: () => dispatch(setVisibilityFilter(ownProps.filter)),
 });
 
-// const mapDispatchToProps = (dispatch: Dispatch<FilterAction>, ownProps: FilterLinkProps) => bindActionCreators({
-//     onClick: setVisibilityFilter,
-// }, dispatch);
-
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
