@@ -4,6 +4,10 @@ import { addTodo } from "../actions/todoActions";
 import AddTodoForm from "../components/AddTodoForm";
 import { TodosAction } from "../reducers/todos";
 
+const zebra2 = bindActionCreators({
+    onAdd: addTodo,
+}, null);
+
 const mapDispatchToProps = (dispatch: Dispatch<TodosAction>) => bindActionCreators({
     onAdd: addTodo,
 }, dispatch);
