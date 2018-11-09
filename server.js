@@ -1,6 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const jwt = require('jsonwebtoken');
+const jwtMiddleware = require('express-jwt');
+
+var SECRET_TOKEN = "ZEBRA";
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -13,12 +17,51 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.use('/protected', jwtMiddleware({
+    secret: SECRET_TOKEN, // Use the same token that we used to sign the JWT above
+    // Let's allow our clients to provide the token in a variety of ways
+    getToken: function (req) {
+        if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') { // Authorization: Bearer g1jipjgi1ifjioj
+            // Handle token presented as a Bearer token in the Authorization header
+            return req.headers.authorization.split(' ')[1];
+        }
+
+        // If we return null, we couldn't find a token.
+        // In this case, the JWT middleware will return a 401 (unauthorized) to the client for this request
+        return null;
+    }
+}));
+
+
 let counter = 0;
 
 const todoList = [
     { name: "eat", done: true, id: ++counter },
     { name: "sleep", done: false, id: ++counter }
 ];
+
+// A simple protected route for demo purposes
+app.get('/protected/data', function (req, res) {
+    console.log(req.user); // => { _id: <Some ID attached to the JWT signed in the login route above> }
+
+    res.status(200).send({
+        text: 'Hello world!'
+    })
+});
+
+app.post('/login', (req, res) => {
+    const { body } = req;
+    const id = body.id;
+
+    const token = jwt.sign({
+        _id: id
+    }, SECRET_TOKEN);
+
+    res.send({
+        id,
+        token
+    });
+})
 
 app.get('/todos', (req, res) => {
     res.send(todoList);
