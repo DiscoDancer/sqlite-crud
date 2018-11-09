@@ -22,13 +22,14 @@ export default class Repository {
     delete(id) {
         const found = this.todoList.find((x) => x.id === id);
         if (!found) {
-            return;
+            return false;
         }
         const index = this.todoList.indexOf(found);
         if (index < 0) {
-            return;
+            return false;
         }
         this.todoList.splice(index, 1);
+        return true;
     }
 
     // tslint:disable-next-line:member-access
@@ -41,5 +42,18 @@ export default class Repository {
             found.name = todo.name;
         }
         found.done = todo.done;
+    }
+
+    // tslint:disable-next-line:member-access
+    replace(todo) {
+        const { id, name, done } = todo;
+
+        if (this.delete(id)) {
+            this.todoList.push({
+                done,
+                id,
+                name,
+            });
+        }
     }
 }

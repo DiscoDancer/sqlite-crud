@@ -1,4 +1,5 @@
 import bodyParser from "body-parser";
+import cors from "cors";
 import express from "express";
 import jwtMiddleware from "express-jwt";
 import jwt from "jsonwebtoken";
@@ -12,14 +13,7 @@ const repository = new Repository();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE, PATCH");
-    // tslint:disable-next-line:max-line-length
-    res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
-    next();
-});
+app.use(cors());
 
 app.use("/protected", jwtMiddleware({
     secret: SECRET_TOKEN, // Use the same token that we used to sign the JWT above
@@ -94,15 +88,9 @@ app.patch("/update", (req, res) => {
 
 app.put("/replace", (req, res) => {
     const id = req.body.id;
-    const found = todoList.find((x) => x.id === id);
-    const index = todoList.indexOf(found);
-    todoList.splice(index, 1);
-
-    todoList.push({
-        name: req.body.name,
-        done: req.body.done,
-        id,
-    });
+    if (req.body.id > 0) {
+        repository.replace(req.body);
+    }
 
     res.send(req.body);
 });
