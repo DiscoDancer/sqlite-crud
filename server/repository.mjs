@@ -30,4 +30,16 @@ export default class Repository {
         }
         this.todoList.splice(index, 1);
     }
+
+    // tslint:disable-next-line:member-access
+    update(todo) {
+        const found = this.todoList.find((x) => x.id === todo.id);
+        if (!found) {
+            return;
+        }
+        if (todo.name) {
+            found.name = todo.name;
+        }
+        found.done = todo.done;
+    }
 }

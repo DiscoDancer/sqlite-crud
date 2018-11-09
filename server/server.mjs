@@ -85,13 +85,10 @@ app.delete("/delete", (req, res) => {
 });
 
 app.patch("/update", (req, res) => {
-    const id = req.body.id;
-
-    const found = todoList.find((x) => x.id === id);
-    if (req.body.name) {
-        found.name = req.body.name;
+    if (req.body.id > 0) {
+        repository.update(req.body);
     }
-    found.done = req.body.done;
+
     res.send(req.body);
 });
 
