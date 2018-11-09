@@ -1,12 +1,9 @@
 import { connect } from "react-redux";
 import { toggleTodo } from "../actions/todoActions";
 import TodoList from "../components/TodoList";
-import { AppState } from "../models/appState";
 import Todo from "../models/todo";
 import VisibilityFilters from "../models/visibilityFilters";
-
-// container defines how the component should react on state change
-// container fires action creators in response to component`s callback calls
+import { AppState } from "../store/appState";
 
 const getVisibleTodos = (todos: Todo[], filter: VisibilityFilters) => {
     switch (filter) {

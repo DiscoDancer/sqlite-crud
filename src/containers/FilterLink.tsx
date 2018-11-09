@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
-import { bindActionCreators, Dispatch } from "redux";
+import { Dispatch } from "redux";
 import { setVisibilityFilter } from "../actions/filterActions";
 import Link from "../components/Link";
-import { AppState } from "../models/appState";
 import VisibilityFilters from "../models/visibilityFilters";
 import { FilterAction } from "../reducers/visibilityFilter";
+import { AppState } from "../store/appState";
 
 export interface FilterLinkProps {
     filter: VisibilityFilters;
