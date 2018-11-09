@@ -1,7 +1,7 @@
 export default class Repository {
     constructor() {
         this.counter = 0;
-        this.data = [
+        this.todoList = [
             { name: "eat", done: true, id: ++this.counter },
             { name: "sleep", done: false, id: ++this.counter },
         ];
@@ -9,6 +9,25 @@ export default class Repository {
 
     // tslint:disable-next-line:member-access
     getAll() {
-        return this.data;
+        return this.todoList;
+    }
+
+    // tslint:disable-next-line:member-access
+    add(todo) {
+        todo.id = ++this.counter;
+        this.todoList.push(todo);
+    }
+
+    // tslint:disable-next-line:member-access
+    delete(id) {
+        const found = this.todoList.find((x) => x.id === id);
+        if (!found) {
+            return;
+        }
+        const index = this.todoList.indexOf(found);
+        if (index < 0) {
+            return;
+        }
+        this.todoList.splice(index, 1);
     }
 }

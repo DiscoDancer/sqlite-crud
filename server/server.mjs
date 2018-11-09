@@ -72,18 +72,15 @@ app.get("/todos", (req, res) => {
 
 app.post("/add", (req, res) => {
     const entry = req.body;
-    entry.id = ++counter;
-    todoList.push(req.body);
+    repository.add(entry);
     res.send(entry);
 });
 
 app.delete("/delete", (req, res) => {
     const id = req.body.id;
-
-    const found = todoList.find((x) => x.id === id);
-    const index = todoList.indexOf(found);
-    todoList.splice(index, 1);
-
+    if (id > 0) {
+        repository.delete(id);
+    }
     res.send(req.body);
 });
 
