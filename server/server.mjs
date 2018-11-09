@@ -30,22 +30,6 @@ app.use("/protected", jwtMiddleware({
     },
 }));
 
-let counter = 0;
-
-const todoList = [
-    { name: "eat", done: true, id: ++counter },
-    { name: "sleep", done: false, id: ++counter },
-];
-
-// A simple protected route for demo purposes
-app.get("/protected/data", (req, res) => {
-    console.log(req.user); // => { _id: <Some ID attached to the JWT signed in the login route above> }
-
-    res.status(200).send({
-        text: "Hello world!",
-    });
-});
-
 app.post("/login", (req, res) => {
     const { body } = req;
     const id = body.id;
@@ -64,35 +48,46 @@ app.get("/todos", (req, res) => {
     res.send(repository.getAll());
 });
 
-app.post("/add", (req, res) => {
+app.post("/protected/add", (req, res) => {
+    console.log(`user id: ${req.user._id} method: add`);
+
     const entry = req.body;
     repository.add(entry);
     res.send(entry);
 });
 
-app.delete("/delete", (req, res) => {
+app.delete("/protected/delete", (req, res) => {
+    console.log(`user id: ${req.user._id} method: delete`);
+
     const id = req.body.id;
     if (id > 0) {
         repository.delete(id);
+        res.send(req.body);
+    } else {
+        res.sendStatus(400);
     }
-    res.send(req.body);
 });
 
-app.patch("/update", (req, res) => {
+app.patch("/protected/update", (req, res) => {
+    console.log(`user id: ${req.user._id} method: update`);
+
     if (req.body.id > 0) {
         repository.update(req.body);
+        res.send(req.body);
+    } else {
+        res.sendStatus(400);
     }
-
-    res.send(req.body);
 });
 
-app.put("/replace", (req, res) => {
-    const id = req.body.id;
+app.put("/protected/replace", (req, res) => {
+    console.log(`user id: ${req.user._id} method: replace`);
+
     if (req.body.id > 0) {
         repository.replace(req.body);
+        res.send(req.body);
+    } else {
+        res.sendStatus(400);
     }
-
-    res.send(req.body);
 });
 
 app.listen(3000, () => console.log("started"));
