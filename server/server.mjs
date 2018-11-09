@@ -51,18 +51,27 @@ app.get("/todos", (req, res) => {
 app.post("/protected/add", (req, res) => {
     console.log(`user id: ${req.user._id} method: add`);
 
-    const entry = req.body;
-    repository.add(entry);
-    res.send(entry);
+    try {
+        repository.add(req.body);
+        res.send(req.body);
+    } catch (error) {
+        console.log("an error occured", error);
+        res.sendStatus(400);
+    }
 });
 
 app.delete("/protected/delete", (req, res) => {
     console.log(`user id: ${req.user._id} method: delete`);
 
-    const id = req.body.id;
-    if (id > 0) {
-        repository.delete(id);
-        res.send(req.body);
+    if (body.id > 0) {
+        try {
+            repository.delete(body.id);
+            res.send(req.body);
+        } catch (error) {
+            console.log("an error occured", error);
+            res.sendStatus(400);
+        }
+
     } else {
         res.sendStatus(400);
     }
@@ -72,8 +81,13 @@ app.patch("/protected/update", (req, res) => {
     console.log(`user id: ${req.user._id} method: update`);
 
     if (req.body.id > 0) {
-        repository.update(req.body);
-        res.send(req.body);
+        try {
+            repository.update(req.body);
+            res.send(req.body);
+        } catch (error) {
+            console.log("an error occured", error);
+            res.sendStatus(400);
+        }
     } else {
         res.sendStatus(400);
     }
@@ -83,8 +97,14 @@ app.put("/protected/replace", (req, res) => {
     console.log(`user id: ${req.user._id} method: replace`);
 
     if (req.body.id > 0) {
-        repository.replace(req.body);
-        res.send(req.body);
+        try {
+            repository.replace(req.body);
+            res.send(req.body);
+        } catch (error) {
+            console.log("an error occured", error);
+            res.sendStatus(400);
+        }
+
     } else {
         res.sendStatus(400);
     }
