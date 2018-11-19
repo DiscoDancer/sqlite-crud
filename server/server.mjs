@@ -4,11 +4,13 @@ import express from "express";
 import jwtMiddleware from "express-jwt";
 import jwt from "jsonwebtoken";
 
+import Defender from "./defender.mjs";
 import Repository from "./repository.mjs";
 
 const app = express();
 const SECRET_TOKEN = "ZEBRA";
 const repository = new Repository();
+const defender = new Defender();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -45,7 +47,14 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/todos", (req, res) => {
-    res.send(repository.getAll());
+    const shouldProcess = defender.shouldProcess(req);
+
+    if (shouldProcess) {
+        res.send(repository.getAll());
+    } else {
+        console.log("defender blocked request");
+        res.sendStatus(400);
+    }
 });
 
 app.post("/protected/add", (req, res) => {
