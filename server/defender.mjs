@@ -1,20 +1,19 @@
-import HashTable from "hashtable";
+import Buckets from "buckets-js";
 import IpService from "./ip-service.mjs";
 
 export default class Defender {
     constructor() {
         this.rate = 5;
         this.limit = 3;
-        this.hashTable = new HashTable();
-        this.addresses = [];
-        this.timeout = setTimeout(() => this.clearAddresses(), this.rate * 1000);
+        this.hashTable = Buckets.Dictionary();
+        this.interval = setInterval(() => this.clearAddresses(), this.rate * 1000);
     }
 
     // tslint:disable-next-line:member-access
     shouldProcess(request) {
         const ip = IpService.getIp(request);
 
-        if (this.hashTable.has(ip)) {
+        if (this.hashTable.containsKey(ip)) {
             const row = this.hashTable.get(ip);
             row.count++;
 
@@ -22,8 +21,7 @@ export default class Defender {
                 return false;
             }
         } else {
-            this.hashTable.put(ip, { count: 0 });
-            this.addresses.push(ip);
+            this.hashTable.set(ip, { count: 0 });
         }
 
         return true;
@@ -31,15 +29,11 @@ export default class Defender {
 
     // tslint:disable-next-line:member-access
     clearAddresses() {
-        // tslint:disable-next-line:prefer-for-of
-        for (let i = 0; i < this.addresses.length; i++) {
-            this.hashTable.remove(this.addresses[i]);
-        }
-        this.addresses = [];
+        this.hashTable.clear();
     }
 
     // tslint:disable-next-line:member-access
     turnOff() {
-        clearTimeout(this.timeout);
+        clearInterval(this.interval);
     }
 }
